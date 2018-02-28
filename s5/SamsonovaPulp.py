@@ -148,25 +148,28 @@ for i in range(len(LB)):
 
 
 bnds = tuple(map(tuple, arr))
-print "c   ", len(c),  c
+print "c   ",  len(c),  c
 print "b    ", len(b), b
-print "a    ", len(a), p.DataFrame(a)
+print "a     \n", len(a), p.DataFrame(a)
 print "bnds", bnds
 
 
 # res = linprog(c, A_ub=a, b_ub=b, bounds=bnds, options={"disp": False}, method="simplex")
 
-def solve_minmax(n, a, B, x_min=None, x_max=None):
-    x = pulp.LpVariable.dicts("x", range(n + 1), x_min, x_max)
+def solve_minmax(c, a, B, x_min=None, x_max=None):
+    x = pulp.LpVariable.dicts("x", range(len(c)), x_min, x_max)
     lp_prob = pulp.LpProblem("Minmax Problem", pulp.LpMinimize)
-    lp_prob += pulp.lpSum([x[n]]), "Minimize_the_maximum"
-
-    for i in range(n):
-        label = "Max_constraint_%d" % i
-        dot_B_x = pulp.lpSum([B[i][j] * x[j] for j in range(n)])
-        condition = pulp.lpSum([x[n]]) >= a[i] + dot_B_x
+    nsum = 0
+    for k in c:
+        nsum += k
+    lp_prob += pulp.lpSum(nsum), "Minimize_the_maximum"
+    for ib in xrange(len(B)):
+        label = "Max_constraint_%d" % ib
+        dot_B_x = pulp.lpSum([B[ib] * sx for sx in x])
+        condition = pulp.lpSum(nsum) >= a[ib] + dot_B_x
         lp_prob += condition, label
-
+    for l in lp_prob.variables():
+        print l.value
     lp_prob.writeLP("MinmaxProblem.lp")  # optional
     lp_prob.solve()
 
