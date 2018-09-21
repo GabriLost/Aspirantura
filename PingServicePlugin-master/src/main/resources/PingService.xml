@@ -1,0 +1,20 @@
+<someservice id="PingService">
+<description>BdasPingService</description>
+<properties>
+    <property>
+        <key>JQL Query</key>
+        <name>JQL Запрос для периодической выгрузки</name>
+        <type>string</type>
+    </property>
+    <property>
+        <key>Output folder</key>
+        <name>Папка выгрузки запроса</name>
+        <type>string</type>
+    </property>
+    <property>
+        <key>User</key>
+        <name>Пользователь</name>
+        <type>string</type>
+    </property>
+</properties>
+</someservice>
