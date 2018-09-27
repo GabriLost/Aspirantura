@@ -1,0 +1,49 @@
+#* @vtlvariable name="webResourceManager" type="com.atlassian.plugin.webresource.WebResourceManager" *#
+
+<html>
+<head>
+    $webResourceManager.requireResourcesForContext("cupimportcontext")
+    <title>Manual Import</title>
+</head>
+<body class="aui">
+<div class="aui">
+
+    <section id="content" role="main">
+        <div id="aui-message-bar"></div>
+            <header class="aui-page-header">
+                <div class="aui-page-header-inner">
+                    <div class="aui-page-header-main">
+                        <h1>Manual Import</h1>
+                    </div>
+                </div>
+            </header>
+
+            <div class="aui">
+                <form id="xmlUploaderForm" enctype="multipart/form-data">
+                    <label for="file">Upload file</label>
+                    <input class="upfile" type="file" name="file">
+                    <input id="uploadButton" type="button" value="Upload" class="aui-button aui-button-primary" />
+                    <span style="padding-left: 20px; display: inline-block;" class="button-spinner"></span>
+                </form>
+            </div>
+
+            <hr>
+
+            <div class="aui">
+                <table id="resultsTable" class="aui">
+                    <caption>Parsing Results</caption>
+                    <tbody><tr>
+                    <th>Index</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Import result</th>
+                    <th>Rec sync ID</th>
+                    </tr>
+                    </tbody><tbody id="resultBody"></tbody>
+                </table>
+            </div>
+
+    </section>
+</div>
+</body>
+</html>

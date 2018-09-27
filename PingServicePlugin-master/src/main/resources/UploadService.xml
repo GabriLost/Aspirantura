@@ -1,0 +1,35 @@
+<someservice id="UploadService">
+<description>UploadServicePlugin</description>
+<properties>
+    <property>
+        <key>New field test</key>
+        <name>test</name>
+        <type>string</type>
+    </property>
+    <property>
+        <key>JQL Query</key>
+        <name>JQL Запрос для периодической выгрузки</name>
+        <type>string</type>
+    </property>
+    <property>
+        <key>Output folder</key>
+        <name>Папка выгрузки запроса</name>
+        <type>string</type>
+    </property>
+    <property>
+        <key>User</key>
+        <name>Пользователь</name>
+        <type>string</type>
+    </property>
+    <property>
+        <key>CF_CONF_ELEM</key>
+        <name>Поле кофигурационный элемент</name>
+        <type>string</type>
+    </property>
+    <property>
+        <key>CF_BUG_STAGE</key>
+        <name>Поле Этап обнаружения</name>
+        <type>string</type>
+    </property>
+</properties>
+</someservice>

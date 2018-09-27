@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<timesheets sync_time="12-03-2016">
+    <timesheet>
+        <task ps_task_id="100901" pr_task_id="2348000">[CBDP-137] Тестовая задача для интеграции 2</task>
+        <ps ps_id="1">
+            JIRA
+        </ps>
+        <row_type type_id="1">Трудозатраты</row_type>
+        <rfc id_ascup="-1" id_ps="CBDP-137" ps_href="https://sbtatlas.sigma.sbrf.ru/jiradev/browse/CBDP-137"/>
+        <actual_future_effort_all/>
+        <text_row/>
+        <resources>
+            <user id="900228067" name="Михайловская Татьяна Александровна (СБТ)" email="TAMihaylovskaya.SBT@sberbank.ru">
+                <actual_effort date="2016-03-01">5,00</actual_effort>
+                <actual_effort date="2016-03-02">1,00</actual_effort>
+            </user>
+        </resources>
+    </timesheet>
+</timesheets>

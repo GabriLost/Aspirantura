@@ -1,0 +1,54 @@
+<item>
+   <title>[CBDP-137] Тестовая задача для интеграции 2</title>
+   <link>https://sbtatlas.sigma.sbrf.ru/jiradev/browse/CBDP-137</link>
+   <project id="13109" key="CBDP">CTAC Bug Demo project</project>
+   <description>&lt;p&gt;Описание&lt;/p&gt;</description>
+   <environment />
+   <key id="100901">CBDP-137</key>
+   <summary>Тестовая задача для интеграции 2</summary>
+   <type id="3">Задача</type>
+   <status id="1" iconUrl="https://sbtatlas.sigma.sbrf.ru/jiradev/images/icons/statuses/generic.png">Открыт</status>
+   <resolution id="-1">Не решен</resolution>
+   <resources>
+      <user id="900228067" name="Михайловская Татьяна Александровна (СБТ)" email="TAMihaylovskaya.SBT@sberbank.ru">
+         <actual_effort date="2016-03-01">5,00</actual_effort>
+         <actual_effort date="2016-03-02">1,00</actual_effort>
+      </user>
+   </resources>
+   <customfield_12907 key=" com.atlassian.jira.plugin.system.customfieldtypes:textfield ">
+      <customfieldname>ID задачи в КРП</customfieldname>
+      <customfieldvalues>
+         <customfieldvalue>2348000</customfieldvalue>
+      </customfieldvalues>
+   </customfield_12907>
+   <customfield_10601 key=" com.atlassian.jira.plugin.system.customfieldtypes:datepicker ">
+      <customfieldname>Начало</customfieldname>
+      <customfieldvalues>
+         <customfieldvalue>Чт, 10 мар 2016 00:00:00 +0400</customfieldvalue>
+      </customfieldvalues>
+   </customfield_10601>
+   <customfield_11605 key=" com.atlassian.jira.plugin.system.customfieldtypes:select ">
+      <customfieldname>Категория задачи</customfieldname>
+      <customfieldvalues>
+         <customfieldvalue key="11612"><![CDATA[Задача]]></customfieldvalue>
+      </customfieldvalues>
+   </customfield_11605>
+   <customfield_10002 key=" com.atlassian.jira.plugin.system.customfieldtypes:float ">
+      <customfieldname>Story Points</customfieldname>
+      <customfieldvalues>
+         <customfieldvalue>0.0</customfieldvalue>
+      </customfieldvalues>
+   </customfield_10002>
+   <customfield_10004 key=" com.pyxis.greenhopper.jira:gh-global-rank ">
+      <customfieldname>Rank</customfieldname>
+      <customfieldvalues>
+         <customfieldvalue>80081</customfieldvalue>
+      </customfieldvalues>
+   </customfield_10004>
+   <customfield_13300 key=" com.atlassian.jira.plugin.system.customfieldtypes:float ">
+      <customfieldname>Units(WBSGantt)</customfieldname>
+      <customfieldvalues>
+         <customfieldvalue>100.0</customfieldvalue>
+      </customfieldvalues>
+   </customfield_13300>
+</item>

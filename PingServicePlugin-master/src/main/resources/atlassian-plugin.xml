@@ -6,19 +6,20 @@
         <param name="plugin-icon">images/pluginIcon.png</param>
         <param name="plugin-logo">images/pluginLogo.png</param>
     </plugin-info>
-
+    <!--<component-import key="pluginSettingFactory" interface="com.atlassian.sal.api.pluginsettings.PluginSettingsFactory">-->
+    <!--</component-import>-->
+    <!--<component key="settingsComponent" class ="ru.gabri.dao.LastRun"/>-->
     <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="PingServicePlugin"/>
-    
+    <resource type="i18n" name="i18n" location="UploadServicePlugin"/>
     <!-- add our web resources -->
-    <web-resource key="PingServicePlugin-resources" name="PingServicePlugin Web Resources">
+    <web-resource key="UploadServicePlugin-resources" name="UploadServicePlugin Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         
-        <resource type="download" name="PingServicePlugin.css" location="/css/PingServicePlugin.css"/>
-        <resource type="download" name="PingServicePlugin.js" location="/js/PingServicePlugin.js"/>
+        <resource type="download" name="UploadServicePlugin.css" location="/css/UploadServicePlugin.css"/>
+        <resource type="download" name="UploadServicePlugin.js" location="/js/UploadServicePlugin.js"/>
         <resource type="download" name="images/" location="/images"/>
 
-        <context>PingServicePlugin</context>
+        <context>UploadServicePlugin</context>
     </web-resource>
     
 </atlassian-plugin>

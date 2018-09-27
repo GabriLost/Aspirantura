@@ -1,0 +1,109 @@
+#* @vtlvariable name="webResourceManager" type="com.atlassian.plugin.webresource.WebResourceManager" *#
+#* @vtlvariable name="textutils" type="com.opensymphony.util.TextUtils" *#
+
+#* @vtlvariable name="action" type="ru.sbertech.atlas.jira.cupintegration.out.action.ConfigureTimeSheetExportAction" *#
+#* @vtlvariable name="importSettings" type="ru.sbertech.atlas.jira.cupintegration.in.model.ImportSettings" *#
+#* @vtlvariable name="releaseMapping" type="ru.sbertech.atlas.jira.cupintegration.in.model.ReleaseMapping" *#
+
+#* @vtlvariable name="autoExport" type="java.lang.Boolean" *#
+#* @vtlvariable name="exportSmbLogin" type="java.lang.String" *#
+#* @vtlvariable name="exportPathSmb" type="java.lang.String" *#
+#* @vtlvariable name="resultServiceUrl" type="java.lang.String" *#
+#* @vtlvariable name="exportSmbWebService" type="java.lang.String" *#
+#* @vtlvariable name="filter" type="java.lang.String" *#
+#* @vtlvariable name="schedule" type="java.lang.String" *#
+#* @vtlvariable name="sharedFolder" type="java.lang.String" *#
+#* @vtlvariable name="filePrefix" type="java.lang.String" *#
+
+<html>
+<head>
+    $webResourceManager.requireResourcesForContext("cupintegrationcontext")
+    $webResourceManager.requireResourcesForContext("cronsettingscontext")
+    <title>Configure Export</title>
+    <script type="text/javascript">
+        function changeAutoExport(checkBox) {
+           AJS.$('#autoExport').val(checkBox.checked);
+        };
+    </script>
+</head>
+
+<body class="aui">
+<div class="aui">
+    <section id="content" role="main">
+        <header class="aui-page-header">
+            <div class="aui-page-header-inner">
+                <div class="aui-page-header-main">
+                    <h1>Configure Export</h1>
+                </div>
+            </div>
+        </header>
+
+        <div id="aui-message-bar"></div>
+        <select id="errors" style="display: none;">
+            #foreach ($error in $action.getErrorMessages())
+                <option>${error}</option>
+            #end
+        </select>
+
+        <form id="timeSheetExportConfigForm" action="ConfigureTimeSheetExportAction!default.jspa" method="post" class="aui">
+
+            <div class="field-group">
+                <label for="sharedFolder">Output Folder</label>
+                    <input class="text" id="sharedFolder" name="sharedFolder" value=#if(${sharedFolder}) "$sharedFolder" #else "" #end>
+            </div>
+
+            <div class="field-group">
+                <label for="enableAutoExport">Enable Auto Export</label>
+                    <input type="hidden" id="autoExport" name="autoExport" value=#if($autoExport==true) "true" #else "false" #end />
+                <input class="checkbox" id="autoExportCheckBox" type="checkbox" onclick="changeAutoExport(this)" #if ($autoExport==true) checked="checked" #end/>
+            </div>
+
+            <div class="field-group">
+                <label for="filePrefix">FilePrefix</label>
+                <input class="text" id="filePrefix" type="text" name="filePrefix" value="$textutils.htmlEncode($filePrefix)"/>
+            </div>
+
+            <div class="field-group">
+                <label for="schedule">Schedule Params</label>
+                <input class="text" type="text" id="schedule" name="schedule" value="$textutils.htmlEncode($schedule)"/>
+            </div>
+            <div class="field-group">
+                   <div id="nextCron"></div>
+            </div>
+            <div class="field-group">
+                <label for="filter">Filter</label>
+                <input class="text long-field" type="text" id="filter" name="filter" value="$textutils.htmlEncode($filter)"/>
+            </div>
+
+            <div class="field-group">
+                <label for="filter">Url export web-service</label>
+                <input type="text" class="text" id="exportWebService" name="exportSmbWebService" value="$textutils.htmlEncode($exportSmbWebService)"/>
+            </div>
+
+            <div class="field-group">
+                <label for="filter">Path to smb</label>
+                <input type="text" class="text" id="exportPathSmb" name="exportPathSmb" value="$textutils.htmlEncode($exportPathSmb)"/>
+            </div>
+
+            <div class="field-group">
+                <label for="filter">Result service</label>
+                <input type="text" class="text" id="resultServiceUrl" name="resultServiceUrl" value="$textutils.htmlEncode($resultServiceUrl)"/>
+            </div>
+
+            <div class="field-group">
+                <label for="filter">Smb login</label>
+                <input type="text" class="text" id="exportSmbLogin" name="exportSmbLogin" value="$textutils.htmlEncode($exportSmbLogin)"/>
+            </div>
+
+            <div class="field-group">
+                <label for="filter">Smb password</label>
+                <input type="password" class="text" id="exportSmbPassword" name="exportSmbPassword"/>
+            </div>
+            <div class="field-group">
+                <button class="aui-button">Save</button>
+            </div>
+
+    </section>
+</div>
+</body>
+</html>

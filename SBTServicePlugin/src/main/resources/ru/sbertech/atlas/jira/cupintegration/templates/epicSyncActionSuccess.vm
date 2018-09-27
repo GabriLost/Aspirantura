@@ -1,0 +1,124 @@
+#* @vtlvariable name="req" type="javax.xml.ws.spi.http.HttpExchange" *#
+#* @vtlvariable name="i18n" type="com.atlassian.sal.api.message.I18nResolver" *#
+#* @vtlvariable name="webResourceManager" type="com.atlassian.plugin.webresource.WebResourceManager" *#
+
+#* @vtlvariable name="issues" type="java.util.Set<com.atlassian.jira.issue.Issue>" *#
+#* @vtlvariable name="epicSyncResults" type="ru.sbertech.atlas.jira.cupintegration.issuerendering.model.EpicSyncResult[]" *#
+#* @vtlvariable name="selectedIssueIds" type="java.lang.String[]" *#
+#* @vtlvariable name="epicId" type="java.lang.String" *#
+
+<head>
+    $webResourceManager.requireResourcesForContext("epicsynccontext")
+    <script>
+        AJS.$(document).ready(function () {
+            if (AJS.$(".issues-ignored").size() == 0) {
+                AJS.$("#message-ignoring").remove();
+            }
+        });
+    </script>
+</head>
+<body>
+<div class="main-heading">
+    <h2 title="Sync issues">$i18n.getText("ru.sbertech.atlas.jira.cupintegration.plugin.epic.synchronization.title")</h2>
+</div>
+<br/>
+    #if($epicSyncResults.size() == 0)
+    <div class="aui-message warning"><span class="aui-icon icon-warning"></span>
+        <p><b>$i18n.getText("ru.sbertech.atlas.jira.cupintegration.plugin.epic.synchronization.noIssuesUpdated")</b></p>
+    </div>
+    #else
+        #set( $list = [])
+    <p class="message" style="padding: 10px;"><b>$i18n.getText("ru.sbertech.atlas.jira.cupintegration.plugin.epic.synchronization.success", $epicSyncResults.size())</b></p>
+    <div class="main-container" style="padding-bottom: 10px; max-height: 70vh; overflow-y: scroll;">
+        <br/>
+        <table id="issuetable" class="aui editable">
+            <thead>
+                <tr class="rowHeader">
+                    <th id="flag">#</th>
+                    <th id="issues">Key</th>
+                    <th id="description">Description</th>
+                    <th id="oldv">Old Value</th>
+                    <th id="newv">New Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                #foreach($result in $epicSyncResults)
+                    #set( $a = $issues.remove($result.getUpdatedIssue()) )
+                <tr>
+                    <td>
+                        <span class="aui-icon aui-icon-success">Success</span>
+                    </td>
+                    <td class="nav issuekey">
+                        <a class="issue-link"
+                           href="$req.contextPath/browse/$result.getUpdatedIssue().getKey()">$result.getUpdatedIssue().getKey()</a>
+                    </td>
+                    <td class="nav description" title="$result.getUpdatedIssue().getSummary()">
+                        <p>$result.getUpdatedIssue().getSummary()</p>
+                    </td>
+                    <td class="nav oldV">
+                        #if("$!result.getOldValue()" == "")
+                            <p></p>
+                        #else
+                            <p>$result.getOldValue()</p>
+                        #end
+
+                    </td>
+                    <td class="nav newV">
+                        #if("$!result.getNewValue()" == "")
+                            <p></p>
+                        #else
+                            <p>$result.getNewValue()</p>
+                        #end
+                    </td>
+                </tr>
+                #end
+                #foreach($issue in $issues)
+                    #if( "$!issue.getTimeSpent()" == "" || $issue.getTimeSpent() <= 0 )
+                        #foreach($key in $selectedIssueIds)
+                            #if($key == $issue.getKey())
+                                #set( $a = $list.add($issue) )
+                            <tr>
+                                <td>
+                                    <span class="aui-icon aui-icon-error">Error</span>
+                                </td>
+                                <td class="nav issuekey">
+                                    <a class="issue-link"
+                                       href="$req.contextPath/browse/$issue.getKey()">$issue.getKey()</a>
+                                </td>
+                                <td class="nav description" colspan="3" title="$issue.getSummary()">
+                                    <p>$issue.getSummary()</p>
+                                </td>
+                            </tr>
+                            #end
+                        #end
+                    #end
+                #end
+                #foreach($issue in $list)
+                    #set($a = $issues.remove($issue))
+                #end
+            <tr id="message-ignoring">
+                <td colspan="5" align="center"><b>$i18n.getText("ru.sbertech.atlas.jira.cupintegration.plugin.epic.synchronization.notSelectedIssues")</b></td>
+            </tr>
+                #foreach($issue in $issues)
+                <tr class="issues-ignored">
+                    <td>
+                        <span class="aui-icon aui-icon-small aui-iconfont-help"></span>
+                    </td>
+                    <td class="nav issuekey">
+                        <a class="issue-link" href="$req.contextPath/browse/$issue.getKey()">$issue.getKey()</a>
+                    </td>
+                    <td class="nav description" colspan="3" title="$issue.getSummary()">
+                        <p>$issue.getSummary()</p>
+                    </td>
+                </tr>
+                #end
+            </tbody>
+        </table>
+    </div>
+    <div class="buttons form-footer" style="padding: 10px 25px 10px 0px;">
+        <a accesskey="`" class="aui-button aui-button-link cancel" href="$req.contextPath/browse/$epicId"
+           id="update-issue-ok" title="Press Alt+` to close">$i18n.getText("ru.sbertech.atlas.jira.cupintegration.plugin.epic.synchronization.close")</a>
+    </div>
+    #end
+</body>
+

@@ -1,0 +1,6 @@
+#disable_html_escaping()
+<rss>
+    <channel>
+        <title>#xmlEscape($title)</title>
+        <link>#xmlEscape($requestContext.baseUrl)</link>
+        <description>$i18n.getText('issue.views.xml.single.desc')</description>

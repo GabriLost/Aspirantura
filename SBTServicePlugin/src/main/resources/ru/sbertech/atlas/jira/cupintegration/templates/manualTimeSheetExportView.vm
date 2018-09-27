@@ -1,0 +1,65 @@
+#* @vtlvariable name="filter" type="java.lang.String" *#
+#* @vtlvariable name="toDate" type="java.lang.String" *#
+#* @vtlvariable name="fromDate" type="java.lang.String" *#
+#* @vtlvariable name="webResourceManager" type="com.atlassian.plugin.webresource.WebResourceManager" *#
+
+<html>
+<head>
+    $webResourceManager.requireResourcesForContext("manualcupintegrationcontext")
+    $webResourceManager.requireResourcesForContext("com.atlassian.auiplugin:aui-spinner")
+    $webResourceManager.requireResourcesForContext("codemirror")
+    <title>Manual Export</title>
+</head>
+<body class="aui">
+<div class="aui">
+
+    <section class="aui-page-panel-content">
+        <div id="aui-message-bar"></div>
+        <form id="manualTimeSheetExport" class="aui">
+
+            <header class="aui-page-header">
+                <div class="aui-page-header-inner">
+                    <div class="aui-page-header-main">
+                        <h1>Manual Export</h1>
+                    </div>
+                </div>
+            </header>
+
+            <div class="field-group">
+                <label for="fromDate">From Date</label>
+                    <input class="aui-date-picker" id="fromDate" name="fromDate" type="date" title="Min timesheet creation date" value=#if(${fromDate}) "$fromDate" #else "" #end />
+            </div>
+
+            <div class="field-group">
+                <label for="toDate">To Date</label>
+                    <input class="aui-date-picker" id="toDate" name="toDate" type="date" title="Max timesheet creation date" value=#if(${toDate}) "$toDate" #else "" #end />
+            </div>
+
+            <div class="field-group">
+                <label for="filter">JQL String(Filter)</label>
+                    <input class="text long-field" type="text" id="filter" name="filter" title="Filter - Jql String" value=#if(${filter}) "$filter" #else "" #end />
+            </div>
+
+            <div class="field-group">
+                <div id="generateXmlButton" class="aui-button">Generate XML</div>
+                <span class="spinner-span" id="generateXmlButton-button-spinner"></span>
+            </div>
+
+            <div class="field-group">
+                <label for="res-xml">Result XML</label>
+                <div class="wiki-edit">
+                    <div id="xml-wiki-edit" class="wiki-edit-content">
+                        <textarea class="textarea" id="xmlTextArea" name="xml" rows="4" wrap="soft"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <div id="sendCupButton" class="aui-button">Send to PPM</div>
+                <span class="spinner-span" id="sendCupButton-button-spinner"></span>
+            </div>
+        </form>
+    </section>
+</div>
+</body>
+</html>

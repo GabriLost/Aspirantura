@@ -1,0 +1,114 @@
+#* @vtlvariable name="webResourceManager" type="com.atlassian.plugin.webresource.WebResourceManager" *#
+
+#* @vtlvariable name="importSettings" type="ru.sbertech.atlas.jira.cupintegration.in.model.ImportSettings" *#
+#* @vtlvariable name="releaseMapping" type="ru.sbertech.atlas.jira.cupintegration.in.model.ReleaseMapping" *#
+
+<html>
+<head>
+    $webResourceManager.requireResourcesForContext("cupimportcontext")
+    <title>Configure Import</title>
+</head>
+
+<body class="aui">
+<p class="messages"></p>
+<div class="aui">
+    <section id="content" role="main">
+        <header class="aui-page-header">
+            <div class="aui-page-header-inner">
+                <div class="aui-page-header-main">
+                    <h1>Configure Import</h1>
+                </div>
+            </div>
+        </header>
+        <div><h2 style='display: inline-block;'>Base import settings</h2>
+        <input id="editImportSettings" type="button" value="Edit" class="aui-button aui-button-primary importSettingsEdit importSettingsButton">
+        <input id="saveImportSettings" type="button" value="Save" class="aui-button aui-button-primary importSettingsSave importSettingsButton"> </div>
+        <form id="ImportSettings">
+         <div class="field-group">
+            <label for="userName">User Name</label>
+            <input class="text" id="userName" name="userName" value=#if($importSettings.userName) "${importSettings.userName}" #else "" #end disabled>
+         </div>
+         <div class="field-group">
+            <label for="cupZniIdField">PPM ZNI ID</label>
+            <input id="cupZniIdFieldSelect2" class='importDefaultField' />
+            <input name="cupZniIdField" id="cupZniIdField" value=#if($importSettings.cupZniIdField) "${importSettings.cupZniIdField}" #else "" #end class='importDefaultFieldId importSettingsEdit' readonly />
+         </div>
+
+         <div class="field-group">
+            <label for="cupKrpIdField">PPM KRP ID</label>
+            <input id="cupKrpIdFieldSelect2" class='importDefaultField' />
+            <input name="cupKrpIdField" id="cupKrpIdField" value=#if($importSettings.cupKrpIdField) "${importSettings.cupKrpIdField}" #else "" #end class='importDefaultFieldId importSettingsEdit' readonly />
+         </div>
+
+         </form>
+        <div>
+            <h2 style='display: inline-block;'>PPM Release Mapping</h2>
+            <input id="editReleaseMapping" type="button" value="Edit" class="aui-button aui-button-primary releaseMappingEdit importSettingsButton">
+            <input id="saveReleaseMapping" type="button" value="Save" class="aui-button aui-button-primary releaseMappingSave importSettingsButton">
+        </div>
+        <form id="ReleaseMapping">
+            <div class="field-group">
+                <label for="ppmReleaseId">Release ID</label>
+                <input class="text releaseParams" id="ppmReleaseId" name="ppmReleaseId" value=#if($releaseMapping.ppmReleaseId) "${releaseMapping.ppmReleaseId}" #else "" #end disabled>
+            </div>
+            <div class="field-group">
+                <label for="ppmReleaseName">Release Name</label>
+                <input class="text releaseParams" id="ppmReleaseName" name="ppmReleaseName" value=#if($releaseMapping.ppmReleaseName) "${releaseMapping.ppmReleaseName}" #else "" #end disabled>
+            </div>
+            <div class="field-group">
+                <label for="ppmReleaseAreaPs">Project Key</label>
+                <input class="text releaseParams" id="ppmReleaseAreaPs" name="ppmReleaseAreaPs" value=#if($releaseMapping.ppmReleaseAreaPs) "${releaseMapping.ppmReleaseAreaPs}" #else "" #end disabled>
+            </div>
+            <div class="field-group">
+                <label for="ppmReleaseStartDate">Release Start Date</label>
+                <input class="text releaseParams" id="ppmReleaseStartDate" name="ppmReleaseStartDate" value=#if($releaseMapping.ppmReleaseStartDate) "${releaseMapping.ppmReleaseStartDate}" #else "" #end disabled>
+            </div>
+            <div class="field-group">
+                <label for="ppmReleaseFinishDate">Release Finish Date</label>
+                <input class="text releaseParams" id="ppmReleaseFinishDate" name="ppmReleaseFinishDate" value=#if($releaseMapping.ppmReleaseFinishDate) "${releaseMapping.ppmReleaseFinishDate}" #else "" #end disabled>
+            </div>
+            <div class="field-group">
+                <label for="ppmReleaseStatus">Release Status</label>
+                <input class="text releaseParams" id="ppmReleaseStatus" name="ppmReleaseStatus" value=#if($releaseMapping.ppmReleaseStatus) "${releaseMapping.ppmReleaseStatus}" #else "" #end disabled>
+            </div>
+        </form>
+        <h2>Fields Mapping</h2>
+        <table id="params-table" class="aui aui-table-sortable">
+            <thead>
+                <tr>
+                    <th id="name">Tag</th>
+                    <th id="arrow"></th>
+                    <th id="fType">Type</th>
+                    <th id="fName">Field Name</th>
+                    <th id="fID">Field ID</th>
+                    <th id="add-row-btn"><span class="add-row aui-icon aui-icon-small aui-iconfont-add"/></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="saved-row el-hidden">
+                    <div>
+                        <td class="column-name used" contentEditable="false"></td>
+                        <td class="arrow-column">&harr;</td>
+                        <td class="sfieldType used"></td>
+                        <td class="sfieldName">
+                            <div class="type-val used"></div>
+                            <div class="fieldType el-hidden"></div>
+                        </td>
+                        <td class="sfieldID used"></td>
+                        <td class="order" headers="order">
+                            <span class="edit-row aui-icon aui-icon-small aui-iconfont-edit"></span>
+                            <span class="apply-row aui-icon aui-icon-small aui-iconfont-success el-hidden"></span>
+                            <span class="delete-row aui-icon aui-icon-small aui-iconfont-close-dialog el-hidden"></span>
+                        </td>
+                    </div>
+                </tr>
+                <!-- Start code block -->
+
+            </tbody>
+        </table>
+        <input id="export-btn" type="button" value="Export Data" class="aui-button aui-button-primary">
+        <p id="export"></p>
+    </section>
+</div>
+</body>
+</html>

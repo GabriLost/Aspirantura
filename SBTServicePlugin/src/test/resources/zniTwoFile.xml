@@ -1,0 +1,14 @@
+<issues>
+    <issue>
+        <ppm_rfc_status>Open</ppm_rfc_status>
+        <ppm_rfc_id>1488</ppm_rfc_id>
+        <ppm_rfc_name>TEST EPIC 1</ppm_rfc_name>
+        <ppm_rfc_area_ps>SCRUM</ppm_rfc_area_ps>
+    </issue>
+    <issue>
+        <ppm_rfc_status>Closed</ppm_rfc_status>
+        <ppm_rfc_id>228</ppm_rfc_id>
+        <ppm_rfc_name>TEST EPIC 2</ppm_rfc_name>
+        <ppm_rfc_area_ps>SCRUM</ppm_rfc_area_ps>
+    </issue>
+</issues>
