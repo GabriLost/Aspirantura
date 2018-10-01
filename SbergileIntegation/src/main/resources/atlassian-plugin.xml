@@ -6,12 +6,19 @@
         <param name="plugin-icon">images/pluginIcon.png</param>
         <param name="plugin-logo">images/pluginLogo.png</param>
     </plugin-info>
-    <resource type="i18n" name="i18n" location="UploadServicePlugin"/>
-    <web-resource key="UploadServicePlugin-resources" name="UploadServicePlugin Web Resources">
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="test1"/>
+
+    <!-- add our web resources -->
+    <web-resource key="test1-resources" name="test1 Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
-        <resource type="download" name="UploadServicePlugin.css" location="/css/UploadServicePlugin.css"/>
-        <resource type="download" name="UploadServicePlugin.js" location="/js/UploadServicePlugin.js"/>
+        
+        <resource type="download" name="test1.css" location="/css/test1.css"/>
+        <resource type="download" name="test1.js" location="/js/test1.js"/>
         <resource type="download" name="images/" location="/images"/>
-        <context>UploadServicePlugin</context>
+
+        <context>test1</context>
     </web-resource>
+    
 </atlassian-plugin>

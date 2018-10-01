@@ -13,7 +13,7 @@
     </property>
     <property>
         <key>Output folder</key>
-        <name>Папка выгрузки <з></з>апроса</name>
+        <name>Папка выгрузки запроса</name>
         <type>string</type>
     </property>
     <property>

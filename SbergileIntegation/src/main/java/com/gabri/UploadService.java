@@ -1,4 +1,4 @@
-package ru.gabri;
+package com.gabri;
 
 import com.atlassian.configurable.ObjectConfiguration;
 import com.atlassian.configurable.ObjectConfigurationException;
@@ -11,14 +11,14 @@ import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.service.AbstractService;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.web.bean.PagerFilter;
+import com.gabri.impl.LastRunManager;
+import com.gabri.parser.IssueParser;
+import com.gabri.parser.SerializedIssue;
 import com.google.gson.Gson;
 import com.opensymphony.module.propertyset.PropertySet;
-import ru.gabri.parser.IssueParser;
-import ru.gabri.parser.SerializedIssue;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,12 +28,15 @@ public class UploadService extends AbstractService{
     private String jqlQuery, user, path, date = null;
     private String cong_elem_field_id;
     private String bug_stage_field_id;
-//    private LastRun lastRun;
+    private String LAST_RUN_KEY = "last.run";
+    private String SIMPLE_DATE_FORMAT_FILE = "yyyyMMdd_HHmmss";
+    private String SIMPLE_DATE_FORMAT_JIRA = "yyyy/MM/dd HH:mm";
+    private final LastRunManager lastRunManager;
 
-//    public UploadService( LastRunStorage lastRun){
-//        this.lastRun = lastRun;
-//    }
-
+    public UploadService(){
+        this.lastRunManager = (LastRunManager) ComponentAccessor
+                .getOSGiComponentInstanceOfType(LastRunManager.class);
+    }
     @Override
     public void init(PropertySet props) throws ObjectConfigurationException {
         super.init(props);
@@ -45,21 +48,15 @@ public class UploadService extends AbstractService{
         if (hasProperty("CF_BUG_STAGE"))   bug_stage_field_id = getProperty("CF_BUG_STAGE");
     }
     public void run() {
-        System.out.println("version 1");
+        log.info("_"+ LAST_RUN_KEY + " " + lastRunManager.getValue(LAST_RUN_KEY));
+//        System.out.println("_JQL_"+jqlQuery);
+//        System.out.println("_USER_"+user);
+//        System.out.println("_PATH_"+path);
+//        System.out.println("_CE_"+cong_elem_field_id);
+//        System.out.println("_BS_"+bug_stage_field_id);
 
-//        this.lastRun.setValue("key", "WOW SO MUCH BIG TEXT SEE HERE MOTHER FUCKER");
-//        System.out.println(lastRun.getValue("key"));
-
-        System.out.println("_"+jqlQuery);
-        System.out.println("_"+user);
-        System.out.println("_"+path);
-        System.out.println("_"+cong_elem_field_id);
-        System.out.println("_"+bug_stage_field_id);
-
-        System.out.println("Gabri Gold is run");
-        Date currentDate = new Date();
-    	DateFormat df = new SimpleDateFormat("yyyyMMdd_HHmmss");
-    	date = df.format(currentDate);
+        Date startDate = new Date();
+    	date = new SimpleDateFormat(SIMPLE_DATE_FORMAT_FILE).format(startDate);
         List<Issue> issues = parseJQL(jqlQuery);
         ArrayList<SerializedIssue> sIssues = new ArrayList<SerializedIssue>();
         if (jqlQuery != null && path != null && user != null && issues != null)
@@ -77,9 +74,10 @@ public class UploadService extends AbstractService{
                 catch(IOException ex){
                     System.out.println(ex.getMessage());
                 }
+                lastRunManager.setValue(LAST_RUN_KEY, new SimpleDateFormat(SIMPLE_DATE_FORMAT_JIRA).format(startDate));
         	}
         }
-        else log.warn("Something is null, Gabri!");
+        else log.warn("Something is null!");
     }
 
     private ApplicationUser setAppUser(String user) {
@@ -104,13 +102,10 @@ public class UploadService extends AbstractService{
             catch (SearchException e)
             {
                 log.error("Error running search", e);
-                System.out.println("Error running search");
             }
         } else
             {
                 log.warn("Error parsing jqlQuery: " + parseResult.getErrors());
-                System.out.println("Error parsing jqlQuery: " + parseResult.getErrors());
-
             }
         return null;
     }
