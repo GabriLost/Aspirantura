@@ -4,8 +4,8 @@ from email.mime.text import MIMEText
 
 sender_address = 'alexey.kaliberda@gmail.com'
 sender_pass = 'aker6230'
-recipients = ['snyatkovam.a@yandex.ru', 'parannoic@gmail.com']
-
+recipients = ['parannoic@gmail.com']
+#'snyatkovam.a@yandex.ru', 
 mail_content = '''Hello there!'''
 message = MIMEMultipart()
 message['From'] = sender_address
